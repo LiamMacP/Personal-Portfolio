@@ -16,7 +16,10 @@ const logger = winston.createLogger({
     winston.format.timestamp({
       format: 'YYYY-MM-DD HH:mm:ss'
     }),
-    winston.format.printf(info => `${info.timestamp} [${info.level}]: ${info.message}`)
+    winston.format.metadata({ fillExcept: ['message', 'level', 'timestamp'] }),
+    winston.format.printf(info => 
+      `${info.timestamp} ${info.level} - ${info.message} ${info.metadata ? `: ${JSON.stringify(info.metadata)}` : ''}`
+    )
   ),
   transports: [
     hourlyRotateFileTransport,
