@@ -1,7 +1,8 @@
-const { apiEndpointNotFound } = require('../middleware/request');
+const router = require('express').Router();
+const { initialiseRequest } = require('../middleware/request');
 const apiRouter = require('./api/index')
 
-const router = require('express').Router();
+router.all('*', initialiseRequest);
 
 router.use('/api', apiRouter);
 
