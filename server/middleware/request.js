@@ -11,4 +11,9 @@ const apiEndpointNotFound = (req, res, _) => {
     )
 }
 
-module.exports = { apiEndpointNotFound }; 
+const initialiseRequest = (req, _, next) => {
+    logger.info('Request received', { method: req.method, endpoint: req.originalUrl });
+    next();
+}
+
+module.exports = { apiEndpointNotFound, initialiseRequest }; 
